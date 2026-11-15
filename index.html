@@ -286,6 +286,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:11px;color:var(--sub);let
   document.getElementById('share').onclick=function(){copy(location.href,'청첩장 주소가 복사되었습니다');};
   // video
   var mv=document.getElementById('mv'),snd=document.getElementById('snd');
+  if(mv){
   function setSnd(){snd.textContent=mv.muted?'🔇 소리 켜기':'🔊 소리 끄기';}
   function tryPlay(){var r=mv.play();if(r&&r.catch)r.catch(function(){});}
   snd.onclick=function(){mv.muted=!mv.muted;if(!mv.muted){mv.currentTime=0;}tryPlay();setSnd();};
@@ -295,6 +296,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:11px;color:var(--sub);let
   var lb=document.getElementById('lb');
   document.getElementById('gi').onclick=function(){lb.classList.add('on');};
   lb.onclick=function(){lb.classList.remove('on');};
+  }
 })();
 </script>
 </body>
