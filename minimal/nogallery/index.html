@@ -32,14 +32,14 @@ h2{font-family:var(--fh);font-weight:400;font-size:20px;margin-bottom:34px;lette
 .fade.on{opacity:1;transform:none}
 
 /* hero */
-.hero{position:relative;height:100svh;min-height:600px;max-height:860px;overflow:hidden;padding:0}
+.hero{position:relative;height:100vh;height:100svh;min-height:600px;max-height:860px;overflow:hidden;padding:0}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:51% 50%;transform:scale(1.08);animation:zoom 9s ease-out forwards}
 @keyframes zoom{to{transform:scale(1)}}
 .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,30,20,.35) 0%,rgba(0,0,0,0) 34%,rgba(0,0,0,0) 62%,rgba(40,30,20,.35) 100%)}
 .hero-top,.hero-bot{position:absolute;left:0;right:0;z-index:2;color:#FFFFFF;text-align:center;text-shadow:0 1px 12px rgba(0,0,0,.25)}
 .hero-top{top:24%}
 .hero-poem{position:absolute;left:0;right:0;top:31%;z-index:2;color:#fff;text-align:center;text-shadow:0 1px 12px rgba(0,0,0,.25)}
-.hero-top .script{font-family:'Pinyon Script',cursive;font-size:min(11vw,44px);line-height:1.3;font-weight:400;color:#fff;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.3)}
+.hero-top .script{font-family:'Pinyon Script',cursive;font-size:40px;font-size:min(11vw,44px);line-height:1.3;font-weight:400;color:#fff;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.3)}
 .hero-poem .poem{font-family:'KBIZM','Noto Serif KR',serif;font-weight:400;font-size:17px;line-height:2.1;letter-spacing:.08em;opacity:0;transition:opacity 1.2s}
 .hero-poem .poem.ready{opacity:1}
 .hero-top .names{font-family:var(--fh);font-size:30px;letter-spacing:.12em;margin-top:6px}
@@ -270,7 +270,8 @@ footer{padding:30px 0 40px;text-align:center;font-size:11px;color:var(--sub);let
   // toast + copy
   var t=document.getElementById('toast'),tt;
   function toast(m){t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},1800);}
-  function copy(v,msg){try{navigator.clipboard.writeText(v).then(function(){toast(msg);},function(){toast(v);});}catch(e){toast(v);}}
+  function legacyCopy(v,msg){var ta=document.createElement('textarea');ta.value=v;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,v.length);var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);toast(ok?msg:v);}
+  function copy(v,msg){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(v).then(function(){toast(msg);},function(){legacyCopy(v,msg);});}else legacyCopy(v,msg);}
   document.querySelectorAll('.cp').forEach(function(b){b.onclick=function(){copy(b.dataset.v,'계좌번호가 복사되었습니다');};});
   document.getElementById('share').onclick=function(){copy(location.href,'청첩장 주소가 복사되었습니다');};
   // video
