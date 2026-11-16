@@ -284,7 +284,8 @@ footer{padding:30px 0 40px;text-align:center;font-size:11px;color:var(--sub);let
   if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)tryPlay();else mv.pause();});},{threshold:.4}).observe(mv);} else tryPlay();
   // lightbox
   var lb=document.getElementById('lb');
-  document.getElementById('gi').onclick=function(){lb.classList.add('on');};
+  var lbi=document.getElementById('lbimg');
+  document.querySelectorAll('.gal-img').forEach(function(g){g.onclick=function(){lbi.src=g.src;lb.classList.add('on');};});
   lb.onclick=function(){lb.classList.remove('on');};
   }
 })();
